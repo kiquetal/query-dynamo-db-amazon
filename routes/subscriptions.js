@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var aws=require("aws-sdk");
-
+var config=require("../config");
 /* GET home page. */
 
 const TransactionState={
@@ -14,7 +14,7 @@ const TransactionState={
 router.get("/:subscriptionId",function(req,res,next){
 
     var subscriptionId=req.params.subscriptionId;
-    aws.config.update({accessKeyId: 'AKIAIYM6ILBTK5NFUOGQ', secretAccessKey: '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', region: "us-east-1"});
+    aws.config.update(config);
     var docClient=new aws.DynamoDB.DocumentClient();
 
     var toObj={
@@ -42,7 +42,7 @@ router.get("/:subscriptionId",function(req,res,next){
 router.put("/:subscriptionId",function(req,res,next)
 {
     var subscriptionId=req.params.subscriptionId;
-    aws.config.update({accessKeyId: 'AKIAIYM6ILBTK5NFUOGQ', secretAccessKey: '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', region: "us-east-1"});
+    aws.config.update(config);
     var docClient=new aws.DynamoDB.DocumentClient();
 
     var toObj={
@@ -92,7 +92,7 @@ router.delete("/:subscriptionId",function(req,res,next)
 {
 
     var subscriptionId=req.params.subscriptionId;
-    aws.config.update({accessKeyId: 'AKIAIYM6ILBTK5NFUOGQ', secretAccessKey: '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', region: "us-east-1"});
+    aws.config.update(config);
     var toObj={
         "msisdn":subscriptionId
     };
@@ -138,7 +138,7 @@ router.post('/',function(req,res,next)
     toObj["timestamp"]=new Date().toJSON();
     console.log(toObj);
     console.log(toObj["msisdn"]);
-    aws.config.update({accessKeyId: 'AKIAIYM6ILBTK5NFUOGQ', secretAccessKey: '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', region: "us-east-1"});
+    aws.config.update(config);
     var docClient=new aws.DynamoDB.DocumentClient();
     var params={
         TableName:"amazon-subscriptions",
@@ -201,7 +201,7 @@ function createTransaction(txBody,res)
 router.get('/', function(req, res, next) {
 
 
-    aws.config.update({accessKeyId: 'AKIAIYM6ILBTK5NFUOGQ', secretAccessKey: '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', region: "us-east-1"});
+    aws.config.update(config);
     const docClient=new aws.DynamoDB.DocumentClient();
     const params={
         TableName:"amazon-subscriptions",
