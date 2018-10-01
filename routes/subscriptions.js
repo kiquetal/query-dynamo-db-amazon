@@ -14,6 +14,7 @@ const TransactionState={
 router.get("/:subscriptionId",function(req,res,next){
 
     var subscriptionId=req.params.subscriptionId;
+    console.log(JSON.stringify(config));
     aws.config.update(config);
     var docClient=new aws.DynamoDB.DocumentClient();
 
@@ -175,7 +176,8 @@ router.post('/',function(req,res,next)
 
 function createTransaction(txBody,res)
 {
-    aws.config.update({accessKeyId: 'AKIAIYM6ILBTK5NFUOGQ', secretAccessKey: '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', region: "us-east-1"});
+
+    aws.config.update(config);
     const docClient=new aws.DynamoDB.DocumentClient();
 
     const params={
@@ -200,6 +202,7 @@ function createTransaction(txBody,res)
 
 router.get('/', function(req, res, next) {
 
+    console.log(JSON.stringify(config));
 
     aws.config.update(config);
     const docClient=new aws.DynamoDB.DocumentClient();
